@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +30,6 @@ public class FeignServiceRest {
 	@Autowired
 	private RandomServiceClient randomServiceClient;
 	
-	@Value("${random.service.url}")
-	private String value;
-	
 	/**
 	 * Generate random value
 	 * 
@@ -41,8 +37,6 @@ public class FeignServiceRest {
 	 */
 	@GetMapping(value = "/feign")
 	public ResponseEntity<String> getRandonNumberUsingFeign() {
-		LOG.info("${random.service.url} = " + this.value);
-		
 		LOG.log(Level.INFO, "feign");
 		return ResponseEntity.ok(this.randomServiceClient.getRandonNumber());
 	}
